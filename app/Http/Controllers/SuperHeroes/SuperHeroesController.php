@@ -27,11 +27,11 @@ class SuperHeroesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|\Illuminate\Http\Response
      */
     public function create()
     {
-        dd(2);
+        return view('superheroes.createSH');
     }
 
     public function SuperHeroList(Request $request)
@@ -68,7 +68,7 @@ class SuperHeroesController extends Controller
                 }
             );
         }
-
+        $query->orderBy($columns[$order[0]['column']]['data'], $order[0]['dir']);
         $totalFiltered = $query->count();
 
         $query->limit($length);
@@ -88,11 +88,42 @@ class SuperHeroesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        dd(3);
+        $item = $request->all();
+
+        $newSH = new SuperHeroes();
+
+        $extensions = ['jpg', 'jpeg', 'png', 'bmp'];
+        $temp_avatar = $request->file('avatar');
+
+        if ($temp_avatar) {
+            $ext = $temp_avatar->getClientOriginalExtension();
+            if (in_array($ext, $extensions)) {
+                $fileName = md5(time());
+                $request->file('avatar')->move('uploads/', $fileName . '.' . $temp_avatar->getClientOriginalExtension());
+                $newSH->path_to_image = 'uploads/' . $fileName . '.' . $temp_avatar->getClientOriginalExtension();
+            }
+        }
+
+        $newSH->nickname = $item['nickname'];
+        $newSH->real_name = $item['real_name'];
+        $newSH->origin_description = $item['origin_description'];
+        $newSH->superpowers = $item['superpowers'];
+        $newSH->catch_phrase = $item['catch_phrase'];
+
+        try {
+            $newSH->save();
+            Session::flash('message', 'Success!');
+            Session::flash('alert-success', 'alert-danger');
+            return redirect()->route('super_heroes')->with(['success' => 'Успешно сохранено']);
+        } catch (\Exception $exception) {
+            Session::flash('message', 'Error!');
+            Session::flash('alert-danger', 'danger');
+            return redirect()->route('super_heroes')->with(['error' => $exception->getMessage()]);
+        }
     }
 
     /**
@@ -148,14 +179,16 @@ class SuperHeroesController extends Controller
             $checkSHData->origin_description = $item['origin_description'];
             $checkSHData->superpowers = $item['superpowers'];
             $checkSHData->catch_phrase = $item['catch_phrase'];
-            if (isset($item['path_to_image'])){
+            if (isset($item['path_to_image'])) {
                 $checkSHData->path_to_image = $item['path_to_image'];
             }
             $checkSHData->save();
-            Session::flash('message', 'This is a message!');
-            Session::flash('alert-class', 'alert-danger');
-            return redirect()->route('super_heroes');
+            Session::flash('message', 'Success!');
+            Session::flash('alert-success', 'alert-danger');
+            return redirect()->route('super_heroes')->with(['success' => 'Успешно сохранено']);
         } else {
+            Session::flash('message', 'Error!');
+            Session::flash('alert-danger', 'danger');
             return back()
                 ->withErrors(['msg' => 'Ошибка сохранения'])
                 ->withInput();

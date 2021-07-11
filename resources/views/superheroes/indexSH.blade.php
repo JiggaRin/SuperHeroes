@@ -5,11 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-{{--                        <a class="btn btn-outline-dark">Home</a>--}}
                      <div class="row justify-content-center">
-                        <form action="/">
-                            <button class="btn btn-outline-success">Create</button>
-                        </form>
+                            <a href="/create" class="btn btn-outline-success">Create</a>
                         <hr>
                     </div>
                 </nav>
@@ -59,14 +56,15 @@
                 ],
                 "columnDefs": [
                     {
-                        targets: 0,
+                        targets: 0, sortable:false,
                         "render": function (data, type, row) {
                             return '<input type="checkbox" class="bulk-action-checkbox"  value="' +
                                 row.id + '" >'
                         },
                     },
                     {
-                        targets: 1,
+                        targets: 1, sortable:false, "orderable": false,
+
                         "render": function (data, type, row) {
                             if (row.url) {
                                 return '<img src="' + row.url + '" width="100px" height="100px">'
@@ -93,7 +91,7 @@
                 "ajax": {
                     "url": "/super_heroes_list",
                 },
-                "order": [[1, 'asc']],
+                "order": [[2, 'asc']],
                 initComplete: function () {
                     $('.dataTables_length').after(bulk_selected_btns);
                 },

@@ -6,7 +6,7 @@
             <a href="{{ url('/home') }}">Home</a>
         </li>
         <li class="breadcrumb-item">
-            <a>Edit</a>
+            <a>Create</a>
         </li>
     </ol>
 @endsection
@@ -17,12 +17,12 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h4 class="card-title" id="basic-layout-card-center">Edit SuperHero</h4>
+                        <h4 class="card-title" id="basic-layout-card-center">Create SuperHero</h4>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
                             <form class="form" method="post" autocomplete="off"
-                                  action="{{ @url('/update/'.$superHeroesData['id']) }}"
+                                  action="{{ @url('/store') }}"
                                   enctype="multipart/form-data"
                                   id="user_form">
                                 @csrf
@@ -34,15 +34,9 @@
                                             <label class="col-md-1 label-control"
                                                    for="Avatar">Photo
                                             </label>
-                                            @if($superHeroesData['path_to_image'] != '')
-                                                <img src="{{ URL::to('/') }}/{{$superHeroesData['path_to_image']}}"
-                                                     id="myImg"
-                                                     style="width: 200px; height: 200px">
-                                            @else
-                                                <img src="{{ URL::to('/images/no_image.png') }}"
-                                                     id="myImg"
-                                                     style="width: 200px; height: 200px">
-                                            @endif
+                                            <img src="{{ URL::to('/images/no_image.png') }}"
+                                                 id="myImg"
+                                                 style="width: 200px; height: 200px">
                                             <input type="file" name="avatar" accept="image/png, image/jpeg"
                                                    class="form-control-file"
                                                    style="padding-top: 1%; padding-left: 1.5%;">
@@ -52,15 +46,13 @@
                                 <div class="form-group">
                                     <label for="nickname">Nick Name</label>
                                     <input type="text" id="nickname" class="form-control" placeholder="Nick Name"
-                                           name="nickname" required
-                                           value="{{ old('nickname',$superHeroesData['nickname']) }}">
+                                           name="nickname" required>
                                 </div>
                                 <div class="form-body">
                                     <div class="form-group">
                                         <label for="real_name">Real Name</label>
                                         <input type="text" id="real_name" class="form-control" placeholder="Real Name"
-                                               name="real_name" required
-                                               value="{{ old('real_name',$superHeroesData['real_name']) }}">
+                                               name="real_name" required>
                                     </div>
                                 </div>
                                 <div class="form-body">
@@ -69,8 +61,7 @@
                                         <input type="text" id="origin_description" class="form-control"
                                                placeholder="Origin Description"
                                                name="origin_description"
-                                               required
-                                               value="{{ old('origin_description',$superHeroesData['origin_description']) }}">
+                                               required>
                                     </div>
                                 </div>
                                 <div class="form-body">
@@ -79,8 +70,7 @@
                                         <input type="text" id="superpowers" class="form-control"
                                                placeholder="Superpowers"
                                                name="superpowers"
-                                               required
-                                               value="{{ old('superpowers',$superHeroesData['superpowers']) }}">
+                                               required>
                                     </div>
                                 </div>
                                 <div class="form-body">
@@ -89,8 +79,7 @@
                                         <input type="text" id="catch_phrase" class="form-control"
                                                placeholder="Catch Phrase"
                                                name="catch_phrase"
-                                               required
-                                               value="{{ old('catch_phrase',$superHeroesData['catch_phrase']) }}">
+                                               required>
                                     </div>
                                 </div>
                                 <div class="form-actions center">
