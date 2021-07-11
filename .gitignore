@@ -15,7 +15,12 @@ yarn-error.log
 /.vscode
 /vendor/
 node_modules/
-
+# ignore lock files
+composer.lock
+package-lock.json
+#Laravel Specific files
+/bootstrap/cache/*
+/public/.htaccess
 
 # Laravel 4 specific
 bootstrap/compiled.php

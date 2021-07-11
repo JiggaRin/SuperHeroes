@@ -8,7 +8,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class SuperHeroesController extends Controller
@@ -127,17 +126,6 @@ class SuperHeroesController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        dd(4);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
@@ -196,16 +184,9 @@ class SuperHeroesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * Delete marked rows
+     * TODO Need to add checkbox ids to local storage
      */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function bulkDelete(Request $request)
     {
         $countDeleted = 0;

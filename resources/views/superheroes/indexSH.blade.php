@@ -5,8 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                     <div class="row justify-content-center">
-                            <a href="/create" class="btn btn-outline-success">Create</a>
+                    <div class="row justify-content-center">
+                        <a href="/create" class="btn btn-outline-success">Create</a>
                         <hr>
                     </div>
                 </nav>
@@ -56,14 +56,14 @@
                 ],
                 "columnDefs": [
                     {
-                        targets: 0, sortable:false,
+                        targets: 0, sortable: false,
                         "render": function (data, type, row) {
                             return '<input type="checkbox" class="bulk-action-checkbox"  value="' +
                                 row.id + '" >'
                         },
                     },
                     {
-                        targets: 1, sortable:false, "orderable": false,
+                        targets: 1, sortable: false, "orderable": false,
 
                         "render": function (data, type, row) {
                             if (row.url) {
