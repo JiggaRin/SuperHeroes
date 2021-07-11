@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\SuperHeroes;
 
+use App\Http\Controllers\Controller;
 use App\Models\SuperHeroes;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class SuperHeroesController extends Controller
 {
@@ -18,7 +20,7 @@ class SuperHeroesController extends Controller
      */
     public function index()
     {
-        return view('auth.superheroes.indexSH');
+        return view('superheroes.indexSH');
 
     }
 
@@ -108,11 +110,14 @@ class SuperHeroesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|\Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
-        dd(5);
+        $superHeroesData = SuperHeroes::where('id', $id)->first()->toArray();
+
+        return view('superheroes.editSH',
+            compact('superHeroesData'));
     }
 
     /**
@@ -120,12 +125,41 @@ class SuperHeroesController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
+        $item = $request->all();
+        $extensions = ['jpg', 'jpeg', 'png', 'bmp'];
+        $temp_avatar = $request->file('avatar');
+        if ($temp_avatar) {
+            $ext = $temp_avatar->getClientOriginalExtension();
+            if (in_array($ext, $extensions)) {
+                $fileName = md5(time());
+                $request->file('avatar')->move('uploads/', $fileName . '.' . $temp_avatar->getClientOriginalExtension());
+                $item['path_to_image'] = 'uploads/' . $fileName . '.' . $temp_avatar->getClientOriginalExtension();
+            }
+        }
 
-        dd(6);
+        $checkSHData = SuperHeroes::where('id', $id)->first();
+        if ($checkSHData) {
+            $checkSHData->nickname = $item['nickname'];
+            $checkSHData->real_name = $item['real_name'];
+            $checkSHData->origin_description = $item['origin_description'];
+            $checkSHData->superpowers = $item['superpowers'];
+            $checkSHData->catch_phrase = $item['catch_phrase'];
+            if (isset($item['path_to_image'])){
+                $checkSHData->path_to_image = $item['path_to_image'];
+            }
+            $checkSHData->save();
+            Session::flash('message', 'This is a message!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->route('super_heroes');
+        } else {
+            return back()
+                ->withErrors(['msg' => 'Ошибка сохранения'])
+                ->withInput();
+        }
     }
 
     /**

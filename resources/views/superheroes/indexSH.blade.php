@@ -5,12 +5,13 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-                    <form action="/">
-                        <button class="btn btn-outline-dark"><- На главную</button>
-                    </form>
-                    <input type="button" class="btn btn-outline-success" onclick="history.forward();"
-                           value="Вперед ->"/>
-                    <hr>
+{{--                        <a class="btn btn-outline-dark">Home</a>--}}
+                     <div class="row justify-content-center">
+                        <form action="/">
+                            <button class="btn btn-outline-success">Create</button>
+                        </form>
+                        <hr>
+                    </div>
                 </nav>
                 <div class="card">
                     <div class="card-body">
@@ -41,7 +42,7 @@
             '<option value="">-- Select Action --</option>' +
             '<option value="delete">Delete</option>' +
             '</select>' +
-            '<button id="buckActionSubmit" class="ml-2 btn btn-primary"> Submit Action </button>';
+            '<button id="buckActionSubmit" class="ml-2 btn btn-outline-danger"> Submit Action </button>';
         jQuery(document).ready(function ($) {
             let superHeroesTable = $('#superHeroesTable').DataTable({
                 "processing": true,
@@ -85,12 +86,7 @@
                     {
                         targets: 8,
                         "render": function (data, type, row) {
-                            return '<button type="button" class="btn btn-icon btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i></button>' +
-                                '<div class="dropdown-menu">' +
-                                '<a class="dropdown-item" href="/edit' + row.id + '">\n' +
-                                'Edit<div class="dropdown-divider"></div>' +
-                                '</a>' +
-                                '</div>';
+                            return '<a class="btn btn-outline-dark" href="/edit/' + row.id + '">Edit</a>';
                         }
                     },
                 ],
