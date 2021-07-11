@@ -26,7 +26,7 @@ class ModifySuperheroesTable extends Migration
     public function down()
     {
         Schema::table('superheroes', function (Blueprint $table) {
-            $table->string('varchar', 255)->change();
+            $table->string('path_to_image', 255)->change();
         });
     }
 }

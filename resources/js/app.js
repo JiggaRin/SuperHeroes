@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('datatables.net-bs4');
 
 window.Vue = require('vue').default;
 

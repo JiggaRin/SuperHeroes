@@ -20,7 +20,7 @@ class CreateSuperheroesTable extends Migration
             $table->string('origin_description');
             $table->string('superpowers');
             $table->string('catch_phrase');
-            $table->string('path_to_image');
+            $table->string('path_to_image')->nullable();
             $table->timestamps();
         });
     }

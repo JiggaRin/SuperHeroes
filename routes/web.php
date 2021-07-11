@@ -19,16 +19,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-
 Route::namespace('App\Http\Controllers')
     ->middleware(['auth'])
     ->group(base_path('/routes/admin.php'));
-
-//Superheroes routes
-
-//delete
-//create
-//update
-
-//Dashboard routes
-//

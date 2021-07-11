@@ -27,4 +27,5 @@ class SuperHeroes extends Model
     ];
 
 
+
 }

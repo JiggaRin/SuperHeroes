@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\SuperHeroesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::get('/home', [App\Http\Controllers\SuperHeroesController::class, 'index'])->name('super-heroes');
-
 //Superheroes routes
+Route::get('/home', [SuperHeroesController::class, 'index'])->name('super-heroes');
+Route::get('/super_heroes_list', [SuperHeroesController::class, 'SuperHeroList'])->name('super_heroes_list');
+Route::get('/create', [SuperHeroesController::class, 'create'])->name('super-heroes-create');
+Route::get('/edit', [SuperHeroesController::class, 'edit'])->name('super-heroes-edit');
+Route::get('/bulk_delete', [SuperHeroesController::class, 'bulkDelete'])->name('bulk_delete');
 
-//delete
-//create
-//update
 
 //Dashboard routes
 //

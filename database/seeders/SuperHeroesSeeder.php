@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\SuperHeroes;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class SuperHeroesSeeder extends Seeder
 {
     /**
      * Seed the application's database.
@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        SuperHeroes::factory(50)->create();
+         SuperHeroes::factory(50)->create();
     }
 }
