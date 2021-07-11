@@ -13,16 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-});
 
-Auth::routes();
-
-
-Route::namespace('App\Http\Controllers')
-    ->middleware(['auth'])
-    ->group(base_path('/routes/admin.php'));
+Route::get('/home', [App\Http\Controllers\SuperHeroesController::class, 'index'])->name('super-heroes');
 
 //Superheroes routes
 
