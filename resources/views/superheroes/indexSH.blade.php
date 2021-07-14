@@ -42,6 +42,7 @@
             '<button id="buckActionSubmit" class="ml-2 btn btn-outline-danger"> Submit Action </button>';
         jQuery(document).ready(function ($) {
             let superHeroesTable = $('#superHeroesTable').DataTable({
+                stateSave: true,
                 "processing": true,
                 "serverSide": true,
                 "columns": [
